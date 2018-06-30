@@ -1,0 +1,38 @@
+version: 2
+
+jobs:
+  pr:
+    working_directory: ~/repo
+    docker:
+      - image: continuumio/miniconda3:latest
+    steps:
+      - checkout
+      - run:
+          name: Update Conda
+          command: |
+            conda config --set always_yes True
+            conda config --add channels conda-forge
+            conda update --all
+            export START_TIME=$(date +%s)
+            export TIMEOUT=2700
+            set -e
+            git clone https://github.com/regro/cf-scripts.git
+      - run:
+          name: Run fetcher
+          command: |
+            cd cf-scripts
+            source setup.sh
+            export PATH=~/mc/bin:$PATH
+            xonsh 03.xsh
+workflows:
+  version: 2
+  hourly:
+    triggers:
+      - schedule:
+          cron: "0 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - pr
