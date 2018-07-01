@@ -23,7 +23,7 @@ jobs:
             cd cf-scripts
             source setup.sh
             export PATH=~/mc/bin:$PATH
-            xonsh 03.xsh
+            xonsh circle.xsh
 workflows:
   version: 2
   hourly:
