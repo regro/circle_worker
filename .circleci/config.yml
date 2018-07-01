@@ -14,7 +14,7 @@ jobs:
             conda config --add channels conda-forge
             conda update --all
             export START_TIME=$(date +%s)
-            export TIMEOUT=2700
+            export TIMEOUT=7200
             set -e
             git clone https://github.com/regro/cf-scripts.git
       - run:
