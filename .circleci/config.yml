@@ -27,7 +27,6 @@ jobs:
             git clone https://github.com/regro/cf-scripts.git
             cd cf-scripts
             export GIT_FULL_HASH=`git rev-parse HEAD`
-            conda install python=3.6 conda=4.5
             conda install --file requirements/run
             python setup.py develop
             cd ..
@@ -40,8 +39,7 @@ workflows:
   hourly:
     triggers:
       - schedule:
-#          cron: "0 1,3,5,7,9,11,13,15,17,19,21,23 * * *"
-          cron: "17 2 * * *"
+          cron: "0 1,3,5,7,9,11,13,15,17,19,21,23 * * *"
           filters:
             branches:
               only:
