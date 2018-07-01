@@ -16,8 +16,8 @@ jobs:
       - run:
           name: Git user
           command: |
-            git config user.name regro-cf-autotick-bot
-            git config user.email circleci@cf-graph.regro.github.com
+            git config --global user.name regro-cf-autotick-bot
+            git config --global user.email circleci@cf-graph.regro.github.com
       - run:
           name: Clone and Setup
           command: |
@@ -41,7 +41,7 @@ workflows:
     triggers:
       - schedule:
 #          cron: "0 1,3,5,7,9,11,13,15,17,19,21,23 * * *"
-          cron: "12 2 * * *"
+          cron: "17 2 * * *"
           filters:
             branches:
               only:
