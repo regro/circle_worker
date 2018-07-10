@@ -33,20 +33,24 @@ jobs:
             git clone --depth=1 https://github.com/regro/cf-graph.git
       - run:
           name: Stage 0
-          working_directory: ~/repo/cf-graph
-          command: conda-forge-tick --run 0
+          command: |
+            cd cf-graph
+            conda-forge-tick --run 0
       - run:
           name: Stage 1
-          working_directory: ~/repo/cf-graph
-          command: conda-forge-tick --run 1
+          command: |
+            cd cf-graph
+            conda-forge-tick --run 1
       - run:
           name: Stage 2
-          working_directory: ~/repo/cf-graph
-          command: conda-forge-tick --run 2
+          command: |
+            cd cf-graph
+            conda-forge-tick --run 2
       - run:
           name: Stage 3
-          working_directory: ~/repo/cf-graph
-          command: conda-forge-tick --run 3
+          command: |
+            cd cf-graph
+            conda-forge-tick --run 3
 workflows:
   version: 2
   hourly:
