@@ -31,9 +31,22 @@ jobs:
             python setup.py develop
             cd ..
             git clone --depth=1 https://github.com/regro/cf-graph.git
-            cd cf-scripts
-            export PATH=~/mc/bin:$PATH
-            xonsh circle.xsh
+      - run:
+          name: Stage 0
+          working_directory: ~/repo/cf-graph
+          command: conda-forge-tick --run 0
+      - run:
+          name: Stage 1
+          working_directory: ~/repo/cf-graph
+          command: conda-forge-tick --run 1
+      - run:
+          name: Stage 2
+          working_directory: ~/repo/cf-graph
+          command: conda-forge-tick --run 2
+      - run:
+          name: Stage 3
+          working_directory: ~/repo/cf-graph
+          command: conda-forge-tick --run 3
 workflows:
   version: 2
   hourly:
