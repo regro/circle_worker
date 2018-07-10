@@ -49,6 +49,8 @@ jobs:
       - run:
           name: Stage 3
           command: |
+            export START_TIME=$(date +%s)
+            export TIMEOUT=7200
             cd cf-graph
             conda-forge-tick --run 3
 workflows:
