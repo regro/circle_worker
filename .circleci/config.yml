@@ -49,19 +49,19 @@ jobs:
           command: |
             cd cf-graph
             conda-forge-tick --run 2
-#      - run:
-#          name: Stage 3
-#          command: |
-#            export START_TIME=$(date +%s)
-#            export TIMEOUT=7200
-#            cd cf-graph
-#            conda-forge-tick --run 3
+      - run:
+          name: Stage 3
+          command: |
+            export START_TIME=$(date +%s)
+            export TIMEOUT=7200
+            cd cf-graph
+            conda-forge-tick --run 3
 workflows:
   version: 2
   hourly:
     triggers:
       - schedule:
-          cron: "31 * * * *"
+          cron: "0 * * * *"
           filters:
             branches:
               only:
