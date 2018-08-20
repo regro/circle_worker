@@ -34,21 +34,21 @@ jobs:
             python setup.py develop
             cd ..
             git clone --depth=1 https://github.com/regro/cf-graph.git
-      - run:
-          name: Stage 0
-          command: |
-            cd cf-graph
-            conda-forge-tick --run 0
-      - run:
-          name: Stage 1
-          command: |
-            cd cf-graph
-            conda-forge-tick --run 1
-      - run:
-          name: Stage 2
-          command: |
-            cd cf-graph
-            conda-forge-tick --run 2
+#      - run:
+#          name: Stage 0
+#          command: |
+#            cd cf-graph
+#            conda-forge-tick --run 0
+#      - run:
+#          name: Stage 1
+#          command: |
+#            cd cf-graph
+#            conda-forge-tick --run 1
+#      - run:
+#          name: Stage 2
+#          command: |
+#            cd cf-graph
+#            conda-forge-tick --run 2
       - run:
           name: Stage 3
           command: |
