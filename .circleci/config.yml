@@ -56,6 +56,12 @@ jobs:
             export TIMEOUT=7200
             cd cf-graph
             conda-forge-tick --run 3
+      - run:
+          name: deploy
+          when: always
+          command: |
+            cd cf-graph
+            conda-forge-tick --run -1
 workflows:
   version: 2
   hourly:
