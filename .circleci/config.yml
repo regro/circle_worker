@@ -58,6 +58,7 @@ jobs:
             conda-forge-tick --run 3
       - run:
           name: Stage 4
+          when: always
           command: |
             cd cf-graph
             conda-forge-tick --run 4
