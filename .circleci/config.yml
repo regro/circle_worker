@@ -42,16 +42,22 @@ jobs:
           name: Stage 0
           command: |
             cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="${CONDA_PREFIX}/lib/libarchive.so"
             conda-forge-tick --run 0
       - run:
           name: Stage 1
           command: |
             cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="${CONDA_PREFIX}/lib/libarchive.so"
             conda-forge-tick --run 1
       - run:
           name: Stage 2
           command: |
             cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="${CONDA_PREFIX}/lib/libarchive.so"
             conda-forge-tick --run 2
       - run:
           name: Stage 3
@@ -59,25 +65,31 @@ jobs:
             export START_TIME=$(date +%s)
             export TIMEOUT=7200
             cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="${CONDA_PREFIX}/lib/libarchive.so"
             conda-forge-tick --run 3
       - run:
           name: Stage 4
           when: always
           command: |
             cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="${CONDA_PREFIX}/lib/libarchive.so"
             conda-forge-tick --run 4
       - run:
           name: deploy
           when: always
           command: |
             cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="${CONDA_PREFIX}/lib/libarchive.so"
             conda-forge-tick --run -1
 workflows:
   version: 2
   hourly:
     triggers:
       - schedule:
-          cron: "26 * * * *"
+          cron: "34 * * * *"
           filters:
             branches:
               only:
