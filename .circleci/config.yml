@@ -89,7 +89,7 @@ workflows:
   hourly:
     triggers:
       - schedule:
-          cron: "34 * * * *"
+          cron: "48 * * * *"
           filters:
             branches:
               only:
