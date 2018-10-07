@@ -11,7 +11,8 @@ jobs:
           name: Update Conda
           command: |
             conda config --set always_yes True
-            conda config --add channels conda-forge
+            conda config --prepend channels conda-forge/label/gcc7
+            conda config --prepend channels conda-forge
             conda update --all
       - run:
           name: Git user
