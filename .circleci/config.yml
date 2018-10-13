@@ -31,6 +31,8 @@ jobs:
             
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            # hack around issues with xonsh 0.8
+            conda install 'xonsh<0.8'
             
             conda info
             conda config --show-sources
