@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  pr:
+  runstages:
     working_directory: ~/repo
     docker:
       - image: continuumio/miniconda3:latest
@@ -22,18 +22,18 @@ jobs:
           name: Clone and Setup
           command: |
             export START_TIME=$(date +%s)
-            export TIMEOUT=7200            
+            export TIMEOUT=7200
             set -e
             git clone https://github.com/regro/cf-scripts.git
             cd cf-scripts
-            export GIT_FULL_HASH=`git rev-parse HEAD`
+            export GIT_FULL_HASH=$(git rev-parse HEAD)
             conda install --quiet --file requirements/run
-            
+
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             # hack around issues with xonsh 0.8
-            conda install --quiet 'xonsh<0.8'
-            
+            #conda install --quiet 'xonsh<0.8'
+
             conda info
             conda config --show-sources
             conda list --show-channel-urls
@@ -53,7 +53,7 @@ jobs:
             cd cf-graph
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
-            conda-forge-tick --run 1
+            conda-forge-tick --run 1 --debug
       - run:
           name: Stage 2
           command: |
@@ -97,4 +97,7 @@ workflows:
               only:
                 - master
     jobs:
-      - pr
+      - runstages
+  when_pushed:
+    jobs:
+      - runstages
