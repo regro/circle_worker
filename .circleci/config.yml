@@ -1,0 +1,103 @@
+version: 2
+
+jobs:
+  runstages:
+    working_directory: ~/repo
+    docker:
+      - image: continuumio/miniconda3:latest
+    steps:
+      - checkout
+      - run:
+          name: Update Conda
+          command: |
+            conda config --set always_yes True
+            conda config --prepend channels conda-forge
+            conda update --all
+      - run:
+          name: Git user
+          command: |
+            git config --global user.name regro-cf-autotick-bot
+            git config --global user.email circleci@cf-graph.regro.github.com
+      - run:
+          name: Clone and Setup
+          command: |
+            export START_TIME=$(date +%s)
+            export TIMEOUT=7200
+            set -e
+            git clone https://github.com/regro/cf-scripts.git
+            cd cf-scripts
+            export GIT_FULL_HASH=$(git rev-parse HEAD)
+            conda install --quiet --file requirements/run
+
+            # hack around libarchive being dumb
+            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            # hack around issues with xonsh 0.8
+            #conda install --quiet 'xonsh<0.8'
+
+            conda info
+            conda config --show-sources
+            conda list --show-channel-urls
+            python setup.py develop
+            cd ..
+            git clone --depth=1 https://github.com/regro/cf-graph3.git cf-graph
+      - run:
+          name: Stage 0
+          command: |
+            cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            conda-forge-tick --run 0
+      - run:
+          name: Stage 1
+          command: |
+            cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            conda-forge-tick --run 1
+      - run:
+          name: Stage 2
+          command: |
+            cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            conda-forge-tick --run 2
+      - run:
+          name: Stage 3
+          command: |
+            export START_TIME=$(date +%s)
+            export TIMEOUT=7200
+            cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            conda-forge-tick --run 3
+      - run:
+          name: Stage 4
+          when: always
+          command: |
+            cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            conda-forge-tick --run 4
+      - run:
+          name: deploy
+          when: always
+          command: |
+            cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            conda-forge-tick --run -1
+workflows:
+  version: 2
+  hourly:
+    triggers:
+      - schedule:
+          cron: "15 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - runstages
+  when_pushed:
+    jobs:
+      - runstages
