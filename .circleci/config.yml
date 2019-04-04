@@ -67,7 +67,7 @@ jobs:
 #            export START_TIME=$(date +%s)
 #            export TIMEOUT=7200
 #            cd cf-graph
-             hack around libarchive being dumb
+#            # hack around libarchive being dumb
 #            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
 #            conda-forge-tick --run 3
 #      - run:
