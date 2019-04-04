@@ -78,14 +78,14 @@ jobs:
 #            # hack around libarchive being dumb
 #            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
 #            conda-forge-tick --run 4
-#      - run:
-#          name: deploy
-#          when: always
-#          command: |
-#            cd cf-graph
-#            # hack around libarchive being dumb
-#            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
-#            conda-forge-tick --run -1
+      - run:
+          name: deploy
+          when: always
+          command: |
+            cd cf-graph
+            # hack around libarchive being dumb
+            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+            conda-forge-tick --run -1
 workflows:
   version: 2
   hourly:
