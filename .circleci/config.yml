@@ -61,15 +61,15 @@ jobs:
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 2
-      - run:
-          name: Stage 3
-          command: |
-            export START_TIME=$(date +%s)
-            export TIMEOUT=7200
-            cd cf-graph
-            # hack around libarchive being dumb
-            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
-            conda-forge-tick --run 3
+#      - run:
+#          name: Stage 3
+#          command: |
+#            export START_TIME=$(date +%s)
+#            export TIMEOUT=7200
+#            cd cf-graph
+#            # hack around libarchive being dumb
+#            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
+#            conda-forge-tick --run 3
       - run:
           name: Stage 4
           when: always
