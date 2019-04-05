@@ -39,7 +39,7 @@ jobs:
             conda list --show-channel-urls
             python setup.py develop
             cd ..
-            git clone --depth=1 https://github.com/regro/cf-graph3.git cf-graph
+            git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
       - run:
           name: Stage 0
           command: |
