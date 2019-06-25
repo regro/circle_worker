@@ -45,24 +45,25 @@ jobs:
           name: Stage 0
           command: |
             cd cf-graph
-            # hack around libarchive being dumb
             source activate run_env
+
+            # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 0
       - run:
           name: Stage 1
           command: |
             cd cf-graph
-            # hack around libarchive being dumb
             source activate run_env
+            # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 1
       - run:
           name: Stage 2
           command: |
             cd cf-graph
-            # hack around libarchive being dumb
             source activate run_env
+            # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 2
       - run:
@@ -71,8 +72,8 @@ jobs:
             export START_TIME=$(date +%s)
             export TIMEOUT=7200
             cd cf-graph
-            # hack around libarchive being dumb
             source activate run_env
+            # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 3
       - run:
@@ -80,8 +81,8 @@ jobs:
           when: always
           command: |
             cd cf-graph
-            # hack around libarchive being dumb
             source activate run_env
+            # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 4
       - run:
@@ -89,8 +90,8 @@ jobs:
           when: always
           command: |
             cd cf-graph
-            # hack around libarchive being dumb
             source activate run_env
+            # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run -1
 workflows:
