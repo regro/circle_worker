@@ -29,6 +29,7 @@ jobs:
             export GIT_FULL_HASH=$(git rev-parse HEAD)
             conda create -n run_env --quiet --file requirements/run
             conda init
+            source ~/.bashrc
             conda activate run_env
 
             # hack around libarchive being dumb
