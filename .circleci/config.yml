@@ -27,7 +27,8 @@ jobs:
             git clone https://github.com/regro/cf-scripts.git
             cd cf-scripts
             export GIT_FULL_HASH=$(git rev-parse HEAD)
-            conda install --quiet --file requirements/run
+            conda create -n run_env --quiet --file requirements/run
+            source activate run_env
 
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
@@ -44,6 +45,8 @@ jobs:
           name: Stage 0
           command: |
             cd cf-graph
+            source activate run_env
+
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 0
@@ -51,6 +54,7 @@ jobs:
           name: Stage 1
           command: |
             cd cf-graph
+            source activate run_env
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 1
@@ -58,6 +62,7 @@ jobs:
           name: Stage 2
           command: |
             cd cf-graph
+            source activate run_env
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 2
@@ -67,6 +72,7 @@ jobs:
             export START_TIME=$(date +%s)
             export TIMEOUT=7200
             cd cf-graph
+            source activate run_env
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 3
@@ -75,6 +81,7 @@ jobs:
           when: always
           command: |
             cd cf-graph
+            source activate run_env
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 4
@@ -83,6 +90,7 @@ jobs:
           when: always
           command: |
             cd cf-graph
+            source activate run_env
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run -1
