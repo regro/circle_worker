@@ -28,9 +28,7 @@ jobs:
             cd cf-scripts
             export GIT_FULL_HASH=$(git rev-parse HEAD)
             conda create -n run_env --quiet --file requirements/run
-            conda init
-            source ~/.bashrc
-            conda activate run_env
+            source activate run_env
 
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
@@ -48,7 +46,7 @@ jobs:
           command: |
             cd cf-graph
             # hack around libarchive being dumb
-            conda activate run_env
+            source activate run_env
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 0
       - run:
@@ -56,7 +54,7 @@ jobs:
           command: |
             cd cf-graph
             # hack around libarchive being dumb
-            conda activate run_env
+            source activate run_env
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 1
       - run:
@@ -64,7 +62,7 @@ jobs:
           command: |
             cd cf-graph
             # hack around libarchive being dumb
-            conda activate run_env
+            source activate run_env
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 2
       - run:
@@ -74,7 +72,7 @@ jobs:
             export TIMEOUT=7200
             cd cf-graph
             # hack around libarchive being dumb
-            conda activate run_env
+            source activate run_env
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 3
       - run:
@@ -83,7 +81,7 @@ jobs:
           command: |
             cd cf-graph
             # hack around libarchive being dumb
-            conda activate run_env
+            source activate run_env
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 4
       - run:
@@ -92,7 +90,7 @@ jobs:
           command: |
             cd cf-graph
             # hack around libarchive being dumb
-            conda activate run_env
+            source activate run_env
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run -1
 workflows:
