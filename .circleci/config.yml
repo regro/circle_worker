@@ -27,7 +27,8 @@ jobs:
             git clone https://github.com/regro/cf-scripts.git
             cd cf-scripts
             export GIT_FULL_HASH=$(git rev-parse HEAD)
-            conda install --quiet --file requirements/run
+            conda create -n run_env --quiet --file requirements/run
+            conda activate run_env
 
             # hack around libarchive being dumb
             export LIBARCHIVE="/opt/conda/lib/libarchive.so"
