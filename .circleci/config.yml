@@ -4,7 +4,7 @@ jobs:
   runstages:
     working_directory: ~/repo
     docker:
-      - image: continuumio/miniconda3:4.6.14
+      - image: continuumio/miniconda3:latest
     steps:
       - checkout
       - run:
@@ -27,6 +27,7 @@ jobs:
             git clone https://github.com/regro/cf-scripts.git
             cd cf-scripts
             export GIT_FULL_HASH=$(git rev-parse HEAD)
+            . /opt/conda/etc/profile.d/conda.sh && conda activate base
             conda create -n run_env --quiet --file requirements/run
             source activate run_env
 
