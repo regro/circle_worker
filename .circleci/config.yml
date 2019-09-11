@@ -41,6 +41,7 @@ jobs:
             python setup.py develop
             cd ..
             git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
+            git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
       - run:
           name: Stage 0
           command: |
