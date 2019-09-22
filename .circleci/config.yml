@@ -30,11 +30,6 @@ jobs:
             conda create -n run_env --quiet --file requirements/run
             source activate run_env
 
-            # hack around libarchive being dumb
-            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
-            # hack around issues with xonsh 0.8
-            #conda install --quiet 'xonsh<0.8'
-
             conda info
             conda config --show-sources
             conda list --show-channel-urls
@@ -49,7 +44,6 @@ jobs:
             source activate run_env
 
             # hack around libarchive being dumb
-            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 0
       - run:
           name: Stage 1
@@ -57,7 +51,6 @@ jobs:
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 1
       - run:
           name: Stage 2
@@ -65,7 +58,6 @@ jobs:
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 2
       - run:
           name: Stage 3
@@ -75,7 +67,6 @@ jobs:
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 3
       - run:
           name: Stage 4
@@ -84,7 +75,6 @@ jobs:
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run 4
       - run:
           name: deploy
@@ -93,7 +83,6 @@ jobs:
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            export LIBARCHIVE="/opt/conda/lib/libarchive.so"
             conda-forge-tick --run -1
 workflows:
   version: 2
