@@ -25,6 +25,9 @@ jobs:
             export TIMEOUT=7200
             set -e
             git clone https://github.com/regro/cf-scripts.git
+            # remove/comment to run on master
+            git fetch origin
+            git checkout v1
             cd cf-scripts
             export GIT_FULL_HASH=$(git rev-parse HEAD)
             conda create -n run_env --quiet --file requirements/run
