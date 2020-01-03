@@ -27,7 +27,6 @@ jobs:
             git clone https://github.com/regro/cf-scripts.git
             cd cf-scripts
 
-            cd cf-scripts
             # remove/comment to run on master
             git fetch origin --verbose
             git checkout origin/v1
