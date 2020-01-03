@@ -28,8 +28,8 @@ jobs:
             cd cf-scripts
 
             # remove/comment to run on master
-            git fetch origin --verbose
-            git checkout origin/v1
+            # git fetch origin --verbose
+            # git checkout origin/v1
 
             export GIT_FULL_HASH=$(git rev-parse HEAD)
             conda create -n run_env --quiet --file requirements/run
@@ -49,21 +49,21 @@ jobs:
             source activate run_env
 
             # hack around libarchive being dumb
-            conda-forge-tick --run 0
+            conda-forge-tick --run 0 --dry-run
       - run:
           name: Stage 1
           command: |
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            conda-forge-tick --run 1
+            conda-forge-tick --run 1 --dry-run
       - run:
           name: Stage 2
           command: |
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            conda-forge-tick --run 2
+            conda-forge-tick --run 2 --dry-run
       - run:
           name: Stage 3
           command: |
@@ -72,7 +72,7 @@ jobs:
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            conda-forge-tick --run 3
+            conda-forge-tick --run 3 --dry-run
       - run:
           name: Stage 4
           when: always
@@ -80,7 +80,7 @@ jobs:
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            conda-forge-tick --run 4
+            conda-forge-tick --run 4 --dry-run
       - run:
           name: deploy
           when: always
@@ -88,7 +88,7 @@ jobs:
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
-            conda-forge-tick --run -1
+            conda-forge-tick --run -1  --dry-run
 workflows:
   version: 2
   hourly:
