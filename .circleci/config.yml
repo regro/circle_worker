@@ -91,16 +91,16 @@ jobs:
             conda-forge-tick --run -1  
 workflows:
   version: 2
-  hourly:
-    triggers:
-      - schedule:
-          cron: "00 * * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - runstages
+#   hourly:
+#     triggers:
+#       - schedule:
+#           cron: "00 * * * *"
+#           filters:
+#             branches:
+#               only:
+#                 - master
+#     jobs:
+#       - runstages
   when_pushed:
     jobs:
       - runstages
