@@ -91,6 +91,7 @@ jobs:
             conda-forge-tick --run -1  
 workflows:
   version: 2
+# hourly off for now
 #   hourly:
 #     triggers:
 #       - schedule:
