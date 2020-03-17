@@ -68,7 +68,7 @@ jobs:
           name: Stage 3
           command: |
             export START_TIME=$(date +%s)
-            export TIMEOUT=7200
+            export TIMEOUT=2400
             cd cf-graph
             source activate run_env
             # hack around libarchive being dumb
