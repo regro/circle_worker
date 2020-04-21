@@ -101,6 +101,3 @@ workflows:
                 - master
     jobs:
       - runstages
-  when_pushed:
-    jobs:
-      - runstages
