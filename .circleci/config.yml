@@ -170,5 +170,5 @@ workflows:
             branches:
               only:
                 - master
-    jobs:	
+    jobs:
       - runaudit
