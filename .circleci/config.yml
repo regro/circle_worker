@@ -49,21 +49,21 @@ jobs:
             cd cf-graph
             source activate run_env
 
-            # hack around libarchive being dumb
+            
             conda-forge-tick --run 0
       - run:
           name: Stage 1
           command: |
             cd cf-graph
             source activate run_env
-            # hack around libarchive being dumb
+            
             conda-forge-tick --run 1
       - run:
           name: Stage 2
           command: |
             cd cf-graph
             source activate run_env
-            # hack around libarchive being dumb
+            
             conda-forge-tick --run 2
       - run:
           name: Stage 3
@@ -72,7 +72,7 @@ jobs:
             export TIMEOUT=2100
             cd cf-graph
             source activate run_env
-            # hack around libarchive being dumb
+            
             conda-forge-tick --run 3
       - run:
           name: Stage 4
@@ -80,7 +80,7 @@ jobs:
           command: |
             cd cf-graph
             source activate run_env
-            # hack around libarchive being dumb
+            
             conda-forge-tick --run 4
       - run:
           name: deploy
@@ -88,13 +88,70 @@ jobs:
           command: |
             cd cf-graph
             source activate run_env
-            # hack around libarchive being dumb
+            
             conda-forge-tick --run -1
       - run:
           name: trigger the next worker
           when: always
           command: |
             python restart_me.py
+  runaudit:
+    working_directory: ~/repo
+    docker:
+      - image: continuumio/miniconda3:latest
+    steps:
+      - checkout
+      - run:
+          name: Update Conda
+          command: |
+            conda config --set always_yes True
+            conda config --prepend channels conda-forge
+            conda update --all
+            conda install --quiet --yes --file requirements.txt
+      - run:
+          name: Git user
+          command: |
+            git config --global user.name regro-cf-autotick-bot
+            git config --global user.email circleci@cf-graph.regro.github.com
+      - run:
+          name: Clone and Setup
+          command: |
+            export START_TIME=$(date +%s)
+            export TIMEOUT=7200
+            set -e
+            git clone https://github.com/regro/cf-scripts.git
+            cd cf-scripts
+
+            # remove/comment to run on master
+            # git fetch origin --verbose
+            # git checkout origin/v1
+
+            export GIT_FULL_HASH=$(git rev-parse HEAD)
+            conda create -n run_env --quiet --file requirements/run
+            source activate run_env
+
+            conda info
+            conda config --show-sources
+            conda list --show-channel-urls
+            python setup.py develop
+            cd ..
+            git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
+            git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
+      - run:
+          name: Stage 0
+          command: |
+            cd cf-graph
+            source activate run_env
+
+            conda-forge-tick --run 5
+      - run:
+          name: deploy
+          when: always
+          command: |
+            cd cf-graph
+            source activate run_env
+            
+            conda-forge-tick --run -1
 
 workflows:
   version: 2
@@ -105,3 +162,13 @@ workflows:
             branches:
               only:
                 - master
+  hourly:
+    triggers:
+      - schedule:
+          cron: "30 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:	
+      - runaudit
