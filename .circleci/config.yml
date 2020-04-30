@@ -162,13 +162,13 @@ workflows:
             branches:
               only:
                 - master
-#   hourly:
-#     triggers:
-#       - schedule:
-#           cron: "42 * * * *"
-#           filters:
-#             branches:
-#               only:
-#                 - master
+  hourly:
+    triggers:
+      - schedule:
+          cron: "42 * * * *"
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - runaudit
