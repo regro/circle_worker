@@ -1,3 +1,3 @@
 # dummy file
 
-rename me to please.go to start the bot!
+rename me not to please.go to stop the bot!
