@@ -92,7 +92,7 @@ jobs:
             conda-forge-tick --run -1
       - run:
           name: trigger the next worker
-          when: always
+          when: on_success
           command: |
             python restart_me.py
   runaudit:
