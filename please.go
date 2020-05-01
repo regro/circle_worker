@@ -1,5 +1,5 @@
 # dummy file
 
-rename me not to please.go to stop the bot!
+rename this file to stop the bot!
 
 
