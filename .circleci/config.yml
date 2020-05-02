@@ -72,6 +72,7 @@ jobs:
             export TIMEOUT=2100
             cd cf-graph
             source activate run_env
+            conda update conda-forge-pinning --yes
             
             conda-forge-tick --run 3
       - run:
