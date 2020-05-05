@@ -1,5 +1,5 @@
 import os
-import pprint
+import sys
 import tempfile
 import subprocess
 import contextlib
@@ -33,19 +33,18 @@ if not go:
 else:
     print("Starting the next worker...")
     r = requests.post(
-        "https://circleci.com/api/v2/project/github/regro/circle_worker/pipeline",
+        "https://circleci.com/api/v1.1/project/github/regro/circle_worker/tree/master",
         headers={
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Circle-Token": os.environ['CIRCLE_TOKEN'],
         },
-        json={"branch": "master"},
+        json={"build_parameters": {"CIRCLE_JOB": sys.argv[1]}},
+        auth=(os.environ["CIRCLE_TOKEN"], ""),
     )
 
-    if r.status_code != 201:
+    if str(r.status_code)[0] != 2:
         print("the next worker could not be started!")
         print("response:\n%s" % r.status_code)
         r.raise_for_status()
     else:
         print("the next worker was started!")
-        print("response:\n%s" % pprint.pformat(r.json()))
