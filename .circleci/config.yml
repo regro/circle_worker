@@ -44,44 +44,48 @@ jobs:
             git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
             git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
       - run:
-          name: Stage 0
+          name: Stop Me if Needed
+          command: |
+            source activate run_env
+            python stop_me_if_needed.py
+      - run:
+          name: collect feedstock info
           command: |
             cd cf-graph
             source activate run_env
 
-            
             conda-forge-tick --run 0
       - run:
-          name: Stage 1
+          name: make the graph
           command: |
             cd cf-graph
             source activate run_env
-            
+
             conda-forge-tick --run 1
       - run:
-          name: Stage 2
+          name: update upstream versions
           command: |
             cd cf-graph
             source activate run_env
-            
+
             conda-forge-tick --run 2
       - run:
-          name: Stage 3
+          name: run migrations
           command: |
             export START_TIME=$(date +%s)
             export TIMEOUT=2100
             cd cf-graph
             source activate run_env
             conda update conda-forge-pinning --yes
-            
+
             conda-forge-tick --run 3
       - run:
-          name: Stage 4
+          name: update status page info
           when: always
           command: |
             cd cf-graph
             source activate run_env
-            
+
             conda-forge-tick --run 4
       - run:
           name: deploy
@@ -89,7 +93,7 @@ jobs:
           command: |
             cd cf-graph
             source activate run_env
-            
+
             conda-forge-tick --run -1
       - run:
           name: trigger the next worker
@@ -139,7 +143,7 @@ jobs:
             git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
             git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
       - run:
-          name: Stage 0
+          name: audit dependencies
           command: |
             cd cf-graph
             source activate run_env
@@ -151,7 +155,7 @@ jobs:
           command: |
             cd cf-graph
             source activate run_env
-            
+
             conda-forge-tick --run -1
   run_pr_update:
     working_directory: ~/repo
@@ -196,7 +200,7 @@ jobs:
             git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
             git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
       - run:
-          name: Stage 0
+          name: update PR json
           command: |
             cd cf-graph
             source activate run_env
