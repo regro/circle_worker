@@ -224,13 +224,15 @@ jobs:
 
 workflows:
   version: 2
-  when_pushed:
+  bot_when_pushed:
     jobs:
       - run_bot:
           filters:
             branches:
               only:
                 - master
+  pr_when_pushed:
+    jobs:
       - run_pr_update:
           filters:
             branches:
