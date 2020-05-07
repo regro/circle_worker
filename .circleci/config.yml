@@ -73,7 +73,7 @@ jobs:
           name: run migrations
           command: |
             export START_TIME=$(date +%s)
-            export TIMEOUT=2100
+            export TIMEOUT=3000
             cd cf-graph
             source activate run_env
             conda update conda-forge-pinning --yes
@@ -193,6 +193,11 @@ jobs:
             cd ..
             git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
             git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
+      - run:
+          name: Stop Me if Needed
+          command: |
+            source activate run_env
+            python stop_me_if_needed.py
       - run:
           name: update PR json
           command: |
