@@ -42,7 +42,7 @@ else:
         auth=(os.environ["CIRCLE_TOKEN"], ""),
     )
 
-    if str(r.status_code)[0] != 2:
+    if r.status_code != 201:
         print("the next worker could not be started!")
         print("response:\n%s" % r.status_code)
         r.raise_for_status()
