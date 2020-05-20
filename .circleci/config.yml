@@ -22,7 +22,6 @@ jobs:
       - run:
           name: Write Heartbeat and Stop Me if Needed
           command: |
-            source activate run_env
             python restart_me_from_heartbeat.py run_bot
             python restart_me_from_heartbeat.py run_pr_update
 
@@ -71,7 +70,6 @@ jobs:
       - run:
           name: Write Heartbeat and Stop Me if Needed
           command: |
-            source activate run_env
             python write_heartbeat.py run_bot
             python stop_me_if_needed.py
       - run:
@@ -117,13 +115,11 @@ jobs:
           name: trigger the next worker
           when: on_success
           command: |
-            source activate run_env
             python restart_me.py run_bot
       - run:
           name: bump autotick on fail
           when: on_fail
           command: |
-            source activate run_env
             python bump_bot_team.py run_bot
 
   run_pr_update:
@@ -171,7 +167,6 @@ jobs:
       - run:
           name: Write Heartbeat and Stop Me if Needed
           command: |
-            source activate run_env
             python write_heartbeat.py run_pr_update
             python stop_me_if_needed.py
       - run:
@@ -201,13 +196,11 @@ jobs:
           name: trigger the next worker
           when: on_success
           command: |
-            source activate run_env
             python restart_me.py run_pr_update
       - run:
           name: bump autotick on fail
           when: on_fail
           command: |
-            source activate run_env
             python bump_bot_team.py run_pr_update
 
   run_audit:
