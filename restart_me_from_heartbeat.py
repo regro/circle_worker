@@ -35,7 +35,7 @@ with tempfile.TemporaryDirectory() as tmpdir, pushd(tmpdir):
         else:
             go = False
 
-        subprocess.run("git checkout heartbeats", check=True)
+        subprocess.run("git checkout heartbeats", check=True, shell=True)
 
         # we never go if we are told to stop
         if go:
