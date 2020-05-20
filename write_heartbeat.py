@@ -30,37 +30,37 @@ with tempfile.TemporaryDirectory() as tmpdir, pushd(tmpdir):
         with open(heartbeat_file, "w") as fp:
             json.dump({"heartbeat": heartbeat}, fp)
 
-    subprocess.run(
-        ["git", "add", heartbeat_file],
-        check=True,
-    )
+        subprocess.run(
+            ["git", "add", heartbeat_file],
+            check=True,
+        )
 
-    subprocess.run(
-        "git commit --allow-empty -am '[ci skip] heartbeat %s'" % sys.argv[1],
-        check=True,
-        shell=True,
-    )
+        subprocess.run(
+            "git commit --allow-empty -am '[ci skip] heartbeat %s'" % sys.argv[1],
+            check=True,
+            shell=True,
+        )
 
-    subprocess.run(
-        "git remote set-url --push origin "
-        "https://${PASSWORD}@github.com/regro/circle_worker.git",
-        shell=True,
-        check=True,
-    )
+        subprocess.run(
+            "git remote set-url --push origin "
+            "https://${PASSWORD}@github.com/regro/circle_worker.git",
+            shell=True,
+            check=True,
+        )
 
-    i = 0
-    pushed = False
-    while not pushed and i < 10:
-        try:
-            subprocess.run(
-                "git push",
-                check=True,
-                shell=True,
-            )
-            pushed = True
-        except subprocess.CalledProcessError:
-            subprocess.run("git pull --rebase", shell=True)
-        i += 1
+        i = 0
+        pushed = False
+        while not pushed and i < 10:
+            try:
+                subprocess.run(
+                    "git push",
+                    check=True,
+                    shell=True,
+                )
+                pushed = True
+            except subprocess.CalledProcessError:
+                subprocess.run("git pull --rebase", shell=True)
+            i += 1
 
     if not pushed:
         sys.exit(1)
