@@ -26,6 +26,8 @@ with tempfile.TemporaryDirectory() as tmpdir, pushd(tmpdir):
         check=True,
     )
     with pushd("circle_worker"):
+        subprocess.run("git checkout heartbeats", check=True)
+
         heartbeat = int(time.time())
         with open(heartbeat_file, "w") as fp:
             json.dump({"heartbeat": heartbeat}, fp)
