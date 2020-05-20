@@ -26,7 +26,7 @@ heartbeat_time_delta = None
 
 with tempfile.TemporaryDirectory() as tmpdir, pushd(tmpdir):
     subprocess.run(
-        ["git", "clone", "--depth=1", "https://github.com/regro/circle_worker.git"],
+        ["git", "clone", "https://github.com/regro/circle_worker.git"],
         check=True)
 
     with pushd("circle_worker"):
