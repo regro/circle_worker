@@ -22,32 +22,40 @@ def pushd(new_dir):
         os.chdir(previous_dir)
 
 
+heartbeat_time_delta = None
+
 with tempfile.TemporaryDirectory() as tmpdir, pushd(tmpdir):
     subprocess.run(
         ["git", "clone", "--depth=1", "https://github.com/regro/circle_worker.git"],
         check=True)
 
-    if os.path.exists(os.path.join("circle_worker", "please.go")):
-        go = True
-    else:
-        go = False
-
-    # we never go if we are told to stop
-    if go:
-        heartbeat_file = os.path.join("circle_worker", sys.argv[1] + ".json")
-        if not os.path.exists(heartbeat_file):
-            go = False
+    with pushd("circle_worker"):
+        if os.path.exists("please.go"):
+            go = True
         else:
-            with open(heartbeat_file, "r") as fp:
-                heartbeat = json.load(fp)["heartbeat"]
+            go = False
 
-            if time.time() - heartbeat < THREEHOURS:
+        subprocess.run("git checkout heartbeats", check=True)
+
+        # we never go if we are told to stop
+        if go:
+            heartbeat_file = sys.argv[1] + ".json"
+            if not os.path.exists(heartbeat_file):
                 go = False
+            else:
+                with open(heartbeat_file, "r") as fp:
+                    heartbeat = json.load(fp)["heartbeat"]
+
+                heartbeat_time_delta = time.time() - heartbeat
+                if heartbeat_time_delta < THREEHOURS:
+                    go = False
 
 if not go:
     print(
         "I could not find the file 'please.go' on master or "
-        "the heartbeat was too soon! Not triggering!"
+        "the heartbeat was too soon (%s minutes)! Not triggering!" % (
+            heartbeat_time_delta/60
+        )
     )
 else:
     print("Starting the next worker...")
