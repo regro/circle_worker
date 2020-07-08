@@ -183,7 +183,7 @@ jobs:
             cd cf-graph
             source activate run_env
 
-            conda-forge-tick --run 4
+            # conda-forge-tick --run 4
       - run:
           name: deploy
           when: always
