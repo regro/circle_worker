@@ -76,6 +76,8 @@ jobs:
         pushd cf-graph
         source activate run_env
 
+        export CIRCLE_BUILD_URL="azure build ${BUILD_BUILDID}"
+
         conda-forge-tick --run -1
 
         popd
