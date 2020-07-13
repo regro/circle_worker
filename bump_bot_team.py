@@ -8,7 +8,7 @@ gh = github.Github(os.environ["PASSWORD"])
 repo = gh.get_repo("regro/circle_worker")
 
 repo.create_issue(
-    title="failed circle job %s" % os.environ["CIRCLE_BUILD_NUM"],
+    title="failed azure job %s" % os.environ["BUILD_BUILDID"],
     body="""
 Hey @regro/auto-tick!
 
@@ -18,7 +18,7 @@ I hope it is not too much work to fix but we all know that is never the case.
 
 Have a great day!
 
-job url: %s
+job url: IDK :/
 
-""" % (sys.argv[1], os.environ["CIRCLE_BUILD_URL"])
+""" % (sys.argv[1])
 )

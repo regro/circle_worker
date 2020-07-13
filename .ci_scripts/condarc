@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+  - defaults
+show_channel_urls: True
+channel_priority: strict
+always_yes: True
