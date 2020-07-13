@@ -1,4 +1,6 @@
-trigger:
+schedules:
+- cron: "0,15,30,45 * * * *"
+  displayName: status page update
   branches:
     include:
     - azure-cron
