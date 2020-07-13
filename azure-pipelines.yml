@@ -78,6 +78,7 @@ jobs:
         source activate run_env
 
         export CIRCLE_BUILD_URL="azure build ${BUILD_BUILDID}"
+        export CIRCLE_BUILD_NUM="actually-azure-${BUILD_BUILDID}"
 
         conda-forge-tick --run -1
 
