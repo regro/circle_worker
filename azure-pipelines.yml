@@ -23,6 +23,7 @@ jobs:
   - bash: |
         git config --global user.name regro-cf-autotick-bot
         git config --global user.email circleci@cf-graph.regro.github.com
+        git config --global pull.rebase false
 
     displayName: configure git
 
