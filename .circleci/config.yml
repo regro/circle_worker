@@ -1,0 +1,23 @@
+version: 2
+
+jobs:
+  dummy:
+    working_directory: ~/repo
+    docker:
+      - image: continuumio/miniconda3:latest
+    steps:
+      - checkout
+      - run:
+          name: Update Conda
+          command: |
+            echo "dummy job"
+
+workflows:
+  version: 2
+  dummy:
+    jobs:
+      - dummy:
+          filters:
+            branches:
+              ignore:
+                - /.*/
