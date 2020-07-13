@@ -84,3 +84,5 @@ jobs:
         popd
 
     displayName: deploy
+    env:
+      PASSWORD: $(password)
