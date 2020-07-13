@@ -80,7 +80,7 @@ jobs:
         pushd cf-graph
         source activate run_env
 
-        export CIRCLE_BUILD_URL="azure build ${BUILD_BUILDID}"
+        export CIRCLE_BUILD_URL="https://dev.azure.com/conda-forge/regro/_build/results?buildId=${BUILD_BUILDID}&view=results"
         export CIRCLE_BUILD_NUM="actually-azure-${BUILD_BUILDID}"
 
         conda-forge-tick --run -1
