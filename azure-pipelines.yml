@@ -1,5 +1,5 @@
 schedules:
-- cron: "0,15,30,45 * * * *"
+- cron: "0,20,40 * * * *"
   displayName: status page update
   branches:
     include:
