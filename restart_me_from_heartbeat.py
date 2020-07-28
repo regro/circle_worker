@@ -54,7 +54,7 @@ if not go:
     print(
         "I could not find the file 'please.go' on master or "
         "the heartbeat was too soon (%s minutes)! Not triggering!" % (
-            heartbeat_time_delta/60
+            (heartbeat_time_delta or -60)/60
         )
     )
 else:
