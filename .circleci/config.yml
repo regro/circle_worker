@@ -20,7 +20,11 @@ jobs:
             git config --global user.name regro-cf-autotick-bot
             git config --global user.email circleci@cf-graph.regro.github.com
       - run:
-          name: Write Heartbeat and Stop Me if Needed
+          name: Stop Me if Needed
+          command: |
+            python stop_me_if_needed.py
+      - run:
+          name: Write Heartbeat and Maybe Restart
           command: |
             python restart_me_from_heartbeat.py run_bot
             python restart_me_from_heartbeat.py run_pr_update
@@ -236,6 +240,10 @@ jobs:
             git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
             git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
       - run:
+          name: Stop Me if Needed
+          command: |
+            python stop_me_if_needed.py
+      - run:
           name: populate versions
           command: |
             cd cf-graph
@@ -291,6 +299,10 @@ jobs:
             cd ..
             git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
             git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
+      - run:
+          name: Stop Me if Needed
+          command: |
+            python stop_me_if_needed.py
       - run:
           name: audit dependencies
           command: |
