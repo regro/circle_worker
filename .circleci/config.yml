@@ -87,13 +87,6 @@ jobs:
 
             conda-forge-tick --run 1
       - run:
-          name: update upstream versions
-          command: |
-            cd cf-graph
-            source activate run_env
-
-            conda-forge-tick --run 2  
-      - run:
           name: run migrations
           command: |
             export START_TIME=$(date +%s)
@@ -247,7 +240,7 @@ jobs:
           command: |
             cd cf-graph
             source activate run_env
-            conda-forge-tick --run 7
+            conda-forge-tick --run 2
       - run:
           name: deploy
           when: always
