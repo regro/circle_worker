@@ -256,7 +256,7 @@ jobs:
             cd cf-graph
             source activate run_env
             conda-forge-tick --run -1
-            
+
   run_audit:
     working_directory: ~/repo
     docker:
@@ -319,6 +319,58 @@ jobs:
 
             conda-forge-tick --run -1
 
+  run_pypi_mapping:
+    working_directory: ~/repo
+    docker:
+      - image: continuumio/miniconda3:latest
+    steps:
+      - checkout
+      - run:
+          name: Update Conda
+          command: |
+            conda config --set always_yes True
+            conda config --prepend channels conda-forge
+            conda update --all
+            conda install --quiet --yes --file requirements.txt
+      - run:
+          name: Git user
+          command: |
+            git config --global user.name regro-cf-autotick-bot
+            git config --global user.email circleci@cf-graph.regro.github.com
+      - run:
+          name: Clone and Setup
+          command: |
+            export START_TIME=$(date +%s)
+            export TIMEOUT=7200
+            set -e
+            git clone https://github.com/regro/cf-scripts.git
+            cd cf-scripts
+
+            # remove/comment to run on master
+            # git fetch origin --verbose
+            # git checkout origin/v1
+
+            export GIT_FULL_HASH=$(git rev-parse HEAD)
+            conda create -n run_env --quiet --file requirements/run
+            source activate run_env
+
+            conda info
+            conda config --show-sources
+            conda list --show-channel-urls
+            python setup.py develop
+            cd ..
+            git clone --depth=1 https://github.com/regro/cf-graph-countyfair.git cf-graph
+            git clone --depth=1 https://github.com/conda-forge/conda-forge-pinning-feedstock.git
+      - run:
+          name: Stop Me if Needed
+          command: |
+            python stop_me_if_needed.py
+
+      - run:
+          name: pypi name mapping updater
+          command:
+            python update_pypi_name_mapping.py cf-graph
+
 
 workflows:
   version: 2
@@ -348,3 +400,4 @@ workflows:
       - run_audit
       - pacemaker
       - run_versions_update
+      - run_pypi_mapping
