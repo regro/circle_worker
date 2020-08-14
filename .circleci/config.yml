@@ -369,7 +369,15 @@ jobs:
       - run:
           name: pypi name mapping updater
           command:
-            python update_pypi_name_mapping.py cf-graph
+            conda-forge-tick --run 7
+      - run:
+          name: deploy
+          when: always
+          command: |
+            cd cf-graph
+            source activate run_env
+
+            conda-forge-tick --run -1
 
 
 workflows:
