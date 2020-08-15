@@ -368,7 +368,10 @@ jobs:
 
       - run:
           name: pypi name mapping updater
-          command:
+          command: |
+            cd cf-graph
+            source activate run_env
+
             conda-forge-tick --run 7
       - run:
           name: deploy
