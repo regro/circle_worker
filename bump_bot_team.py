@@ -10,7 +10,7 @@ repo = gh.get_repo("regro/circle_worker")
 repo.create_issue(
     title="failed circle job %s" % os.environ["CIRCLE_BUILD_NUM"],
     body="""
-Hey @regro/auto-tick!
+Hey!
 
 It appears that the bot `%s` job failed! :(
 
