@@ -123,6 +123,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: continuumio/miniconda3:latest
+    resource_class: large
     steps:
       - checkout
       - run:
