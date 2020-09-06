@@ -10,7 +10,7 @@ repo = gh.get_repo("regro/circle_worker")
 repo.create_issue(
     title="failed azure job %s" % os.environ["BUILD_BUILDID"],
     body="""
-Hey @regro/auto-tick!
+Hey @regro/auto-tick-triage!
 
 It appears that the bot `%s` job failed! :(
 
