@@ -410,5 +410,5 @@ workflows:
     jobs:
       # - run_audit
       - pacemaker
-      - run_versions_update
-      - run_pypi_mapping
+      # - run_versions_update
+      # - run_pypi_mapping
