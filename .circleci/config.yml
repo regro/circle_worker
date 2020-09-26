@@ -399,16 +399,16 @@ workflows:
             branches:
               only:
                 - master
-  hourly:
-    triggers:
-      - schedule:
-          cron: "42 * * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      # - run_audit
-      - pacemaker
-      # - run_versions_update
-      # - run_pypi_mapping
+#   hourly:
+#     triggers:
+#       - schedule:
+#           cron: "42 * * * *"
+#           filters:
+#             branches:
+#               only:
+#                 - master
+#     jobs:
+#       # - run_audit
+#       - pacemaker
+#       # - run_versions_update
+#       # - run_pypi_mapping
